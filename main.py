@@ -18,27 +18,24 @@ def process_file(filename, section_name, parent_folder):
         # Sort into groups of 8 consecutive "0" and "1"
         groups = []
         current_group = ''
-        hex = 1  # Add a variable to keep track of hexpos
         for line in lines:
             current_group += line
             if len(current_group) == 8:
-                groups.append((hex, current_group))  # Append (hexpos, group) tuple
+                groups.append((current_group))  # Append the group
                 current_group = ''
-                hex += 1  # Increment hexpos value
         if current_group:  # In case there's an incomplete group at the end
-            groups.append((hex, current_group))  # Append the remaining group
+            groups.append((current_group)) 
 
-    # Write the groups to a file within a separate folder for the section
-    groups_folder = os.path.join(parent_folder, section_name.replace(' ', '_'), "groups")
-    if not os.path.exists(groups_folder):
-        os.makedirs(groups_folder)
-    output_file_name = os.path.splitext(os.path.basename(filename))[0] + '_groups.txt'
-    output_file_path = os.path.join(groups_folder, output_file_name)
-    with open(output_file_path, 'w') as f:
-        for hex, group in groups:  # Iterate over (hexpos, group) tuples
-            f.write(f"[{hex}: {group}]\n")
-
-        
+        # Write the groups to a file within a separate folder for the section
+        groups_folder = os.path.join(parent_folder, section_name.replace(' ', '_'), "groups")
+        if not os.path.exists(groups_folder):
+            os.makedirs(groups_folder)
+        output_file_name = os.path.splitext(os.path.basename(filename))[0] + '_groups.txt'
+        output_file_path = os.path.join(groups_folder, output_file_name)
+        with open(output_file_path, 'w') as f:
+            for group in groups:
+                f.write(f"{group}\n")
+                
     return lines, groups
 
 def get_lines_from_groups(section_name, parent_folder):
