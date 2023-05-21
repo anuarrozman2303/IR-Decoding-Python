@@ -1,286 +1,280 @@
-54085-54156 IR Daikin AC: Bits: AGC pulse
-54156-54190 IR Daikin AC: Bits: Long pause
-54190-54224 IR Daikin AC: Bits: 1
-54224-54242 IR Daikin AC: Bits: 0
-54242-54259 IR Daikin AC: Bits: 0
-54259-54276 IR Daikin AC: Bits: 0
-54276-54311 IR Daikin AC: Bits: 1
-54311-54329 IR Daikin AC: Bits: 0
-54329-54346 IR Daikin AC: Bits: 0
-54346-54363 IR Daikin AC: Bits: 0
-54363-54381 IR Daikin AC: Bits: 0
-54381-54415 IR Daikin AC: Bits: 1
-54415-54433 IR Daikin AC: Bits: 0
-54433-54467 IR Daikin AC: Bits: 1
-54467-54502 IR Daikin AC: Bits: 1
-54502-54520 IR Daikin AC: Bits: 0
-54520-54554 IR Daikin AC: Bits: 1
-54554-54588 IR Daikin AC: Bits: 1
-54588-54623 IR Daikin AC: Bits: 1
-54623-54658 IR Daikin AC: Bits: 1
-54658-54693 IR Daikin AC: Bits: 1
-54693-54711 IR Daikin AC: Bits: 0
-54711-54728 IR Daikin AC: Bits: 0
-54728-54762 IR Daikin AC: Bits: 1
-54762-54780 IR Daikin AC: Bits: 0
-54780-54797 IR Daikin AC: Bits: 0
-54797-54815 IR Daikin AC: Bits: 0
-54815-54832 IR Daikin AC: Bits: 0
-54832-54849 IR Daikin AC: Bits: 0
-54849-54867 IR Daikin AC: Bits: 0
-54867-54884 IR Daikin AC: Bits: 0
-54884-54902 IR Daikin AC: Bits: 0
-54902-54919 IR Daikin AC: Bits: 0
-54919-54936 IR Daikin AC: Bits: 0
-54936-54970 IR Daikin AC: Bits: 1
-54970-54988 IR Daikin AC: Bits: 0
-54988-55023 IR Daikin AC: Bits: 1
-55023-55040 IR Daikin AC: Bits: 0
-55040-55057 IR Daikin AC: Bits: 0
-55057-55075 IR Daikin AC: Bits: 0
-55075-55110 IR Daikin AC: Bits: 1
-55110-55144 IR Daikin AC: Bits: 1
-55144-55161 IR Daikin AC: Bits: 0
-55161-55179 IR Daikin AC: Bits: 0
-55179-55196 IR Daikin AC: Bits: 0
-55196-55214 IR Daikin AC: Bits: 0
-55214-55248 IR Daikin AC: Bits: 1
-55248-55266 IR Daikin AC: Bits: 0
-55266-55283 IR Daikin AC: Bits: 0
-55283-55300 IR Daikin AC: Bits: 0
-55300-55318 IR Daikin AC: Bits: 0
-55318-55335 IR Daikin AC: Bits: 0
-55335-55352 IR Daikin AC: Bits: 0
-55352-55370 IR Daikin AC: Bits: 0
-55370-55387 IR Daikin AC: Bits: 0
-55387-55405 IR Daikin AC: Bits: 0
-55405-55422 IR Daikin AC: Bits: 0
-55422-55439 IR Daikin AC: Bits: 0
-55439-55474 IR Daikin AC: Bits: 1
-55474-55509 IR Daikin AC: Bits: 1
-55509-55543 IR Daikin AC: Bits: 1
-55543-55561 IR Daikin AC: Bits: 0
-55561-55578 IR Daikin AC: Bits: 0
-55578-55613 IR Daikin AC: Bits: 1
-55613-55648 IR Daikin AC: Bits: 1
-55648-55682 IR Daikin AC: Bits: 1
-56403-56473 IR Daikin AC: Bits: AGC pulse
-56473-56507 IR Daikin AC: Bits: Long pause
-56507-56542 IR Daikin AC: Bits: 1
-56542-56559 IR Daikin AC: Bits: 0
-56559-56577 IR Daikin AC: Bits: 0
-56577-56594 IR Daikin AC: Bits: 0
-56594-56629 IR Daikin AC: Bits: 1
-56629-56646 IR Daikin AC: Bits: 0
-56646-56663 IR Daikin AC: Bits: 0
-56663-56681 IR Daikin AC: Bits: 0
-56681-56698 IR Daikin AC: Bits: 0
-56698-56733 IR Daikin AC: Bits: 1
-56733-56750 IR Daikin AC: Bits: 0
-56750-56785 IR Daikin AC: Bits: 1
-56785-56820 IR Daikin AC: Bits: 1
-56820-56837 IR Daikin AC: Bits: 0
-56837-56872 IR Daikin AC: Bits: 1
-56872-56906 IR Daikin AC: Bits: 1
-56906-56941 IR Daikin AC: Bits: 1
-56941-56976 IR Daikin AC: Bits: 1
-56976-57011 IR Daikin AC: Bits: 1
-57011-57028 IR Daikin AC: Bits: 0
-57028-57045 IR Daikin AC: Bits: 0
-57045-57080 IR Daikin AC: Bits: 1
-57080-57097 IR Daikin AC: Bits: 0
-57097-57115 IR Daikin AC: Bits: 0
-57115-57132 IR Daikin AC: Bits: 0
-57132-57150 IR Daikin AC: Bits: 0
-57150-57167 IR Daikin AC: Bits: 0
-57167-57184 IR Daikin AC: Bits: 0
-57184-57202 IR Daikin AC: Bits: 0
-57202-57219 IR Daikin AC: Bits: 0
-57219-57236 IR Daikin AC: Bits: 0
-57236-57254 IR Daikin AC: Bits: 0
-57254-57271 IR Daikin AC: Bits: 0
-57271-57306 IR Daikin AC: Bits: 1
-57306-57323 IR Daikin AC: Bits: 0
-57323-57341 IR Daikin AC: Bits: 0
-57341-57358 IR Daikin AC: Bits: 0
-57358-57375 IR Daikin AC: Bits: 0
-57375-57410 IR Daikin AC: Bits: 1
-57410-57427 IR Daikin AC: Bits: 0
-57427-57462 IR Daikin AC: Bits: 1
-57462-57479 IR Daikin AC: Bits: 0
-57479-57497 IR Daikin AC: Bits: 0
-57497-57514 IR Daikin AC: Bits: 0
-57514-57532 IR Daikin AC: Bits: 0
-57532-57566 IR Daikin AC: Bits: 1
-57566-57601 IR Daikin AC: Bits: 1
-57601-57618 IR Daikin AC: Bits: 0
-57618-57653 IR Daikin AC: Bits: 1
-57653-57670 IR Daikin AC: Bits: 0
-57670-57705 IR Daikin AC: Bits: 1
-57705-57740 IR Daikin AC: Bits: 1
-57740-57757 IR Daikin AC: Bits: 0
-57757-57792 IR Daikin AC: Bits: 1
-57792-57809 IR Daikin AC: Bits: 0
-57809-57827 IR Daikin AC: Bits: 0
-57827-57844 IR Daikin AC: Bits: 0
-57844-57879 IR Daikin AC: Bits: 1
-57879-57896 IR Daikin AC: Bits: 0
-57896-57914 IR Daikin AC: Bits: 0
-57914-57931 IR Daikin AC: Bits: 0
-57931-57966 IR Daikin AC: Bits: 1
-57966-58000 IR Daikin AC: Bits: 1
-58000-58035 IR Daikin AC: Bits: 1
-58756-58826 IR Daikin AC: Bits: AGC pulse
-58826-58860 IR Daikin AC: Bits: Long pause
-58860-58895 IR Daikin AC: Bits: 1
-58895-58912 IR Daikin AC: Bits: 0
-58912-58929 IR Daikin AC: Bits: 0
-58929-58947 IR Daikin AC: Bits: 0
-58947-58981 IR Daikin AC: Bits: 1
-58981-58999 IR Daikin AC: Bits: 0
-58999-59016 IR Daikin AC: Bits: 0
-59016-59033 IR Daikin AC: Bits: 0
-59033-59051 IR Daikin AC: Bits: 0
-59051-59086 IR Daikin AC: Bits: 1
-59086-59103 IR Daikin AC: Bits: 0
-59103-59138 IR Daikin AC: Bits: 1
-59138-59172 IR Daikin AC: Bits: 1
-59172-59190 IR Daikin AC: Bits: 0
-59190-59225 IR Daikin AC: Bits: 1
-59225-59259 IR Daikin AC: Bits: 1
-59259-59294 IR Daikin AC: Bits: 1
-59294-59329 IR Daikin AC: Bits: 1
-59329-59363 IR Daikin AC: Bits: 1
-59363-59381 IR Daikin AC: Bits: 0
-59381-59398 IR Daikin AC: Bits: 0
-59398-59433 IR Daikin AC: Bits: 1
-59433-59450 IR Daikin AC: Bits: 0
-59450-59468 IR Daikin AC: Bits: 0
-59468-59485 IR Daikin AC: Bits: 0
-59485-59502 IR Daikin AC: Bits: 0
-59502-59520 IR Daikin AC: Bits: 0
-59520-59537 IR Daikin AC: Bits: 0
-59537-59554 IR Daikin AC: Bits: 0
-59554-59572 IR Daikin AC: Bits: 0
-59572-59589 IR Daikin AC: Bits: 0
-59589-59606 IR Daikin AC: Bits: 0
-59606-59624 IR Daikin AC: Bits: 0
-59624-59641 IR Daikin AC: Bits: 0
-59641-59659 IR Daikin AC: Bits: 0
-59659-59676 IR Daikin AC: Bits: 0
-59676-59693 IR Daikin AC: Bits: 0
-59693-59711 IR Daikin AC: Bits: 0
-59711-59728 IR Daikin AC: Bits: 0
-59728-59745 IR Daikin AC: Bits: 0
-59745-59780 IR Daikin AC: Bits: 1
-59780-59797 IR Daikin AC: Bits: 0
-59797-59815 IR Daikin AC: Bits: 0
-59815-59850 IR Daikin AC: Bits: 1
-59850-59884 IR Daikin AC: Bits: 1
-59884-59919 IR Daikin AC: Bits: 1
-59919-59936 IR Daikin AC: Bits: 0
-59936-59954 IR Daikin AC: Bits: 0
-59954-59971 IR Daikin AC: Bits: 0
-59971-60006 IR Daikin AC: Bits: 1
-60006-60023 IR Daikin AC: Bits: 0
-60023-60041 IR Daikin AC: Bits: 0
-60041-60075 IR Daikin AC: Bits: 1
-60075-60110 IR Daikin AC: Bits: 1
-60110-60127 IR Daikin AC: Bits: 0
-60127-60145 IR Daikin AC: Bits: 0
-60145-60162 IR Daikin AC: Bits: 0
-60162-60179 IR Daikin AC: Bits: 0
-60179-60197 IR Daikin AC: Bits: 0
-60197-60214 IR Daikin AC: Bits: 0
-60214-60232 IR Daikin AC: Bits: 0
-60232-60249 IR Daikin AC: Bits: 0
-60249-60266 IR Daikin AC: Bits: 0
-60266-60284 IR Daikin AC: Bits: 0
-60284-60301 IR Daikin AC: Bits: 0
-60301-60318 IR Daikin AC: Bits: 0
-60318-60336 IR Daikin AC: Bits: 0
-60336-60353 IR Daikin AC: Bits: 0
-60353-60370 IR Daikin AC: Bits: 0
-60370-60405 IR Daikin AC: Bits: 1
-60405-60423 IR Daikin AC: Bits: 0
-60423-60457 IR Daikin AC: Bits: 1
-60457-60492 IR Daikin AC: Bits: 1
-60492-60527 IR Daikin AC: Bits: 1
-60527-60561 IR Daikin AC: Bits: 1
-60561-60596 IR Daikin AC: Bits: 1
-60596-60614 IR Daikin AC: Bits: 0
-60614-60631 IR Daikin AC: Bits: 0
-60631-60648 IR Daikin AC: Bits: 0
-60648-60666 IR Daikin AC: Bits: 0
-60666-60683 IR Daikin AC: Bits: 0
-60683-60700 IR Daikin AC: Bits: 0
-60700-60718 IR Daikin AC: Bits: 0
-60718-60735 IR Daikin AC: Bits: 0
-60735-60753 IR Daikin AC: Bits: 0
-60753-60770 IR Daikin AC: Bits: 0
-60770-60788 IR Daikin AC: Bits: 0
-60788-60805 IR Daikin AC: Bits: 0
-60805-60822 IR Daikin AC: Bits: 0
-60822-60857 IR Daikin AC: Bits: 1
-60857-60892 IR Daikin AC: Bits: 1
-60892-60909 IR Daikin AC: Bits: 0
-60909-60927 IR Daikin AC: Bits: 0
-60927-60944 IR Daikin AC: Bits: 0
-60944-60961 IR Daikin AC: Bits: 0
-60961-60979 IR Daikin AC: Bits: 0
-60979-60996 IR Daikin AC: Bits: 0
-60996-61013 IR Daikin AC: Bits: 0
-61013-61031 IR Daikin AC: Bits: 0
-61031-61048 IR Daikin AC: Bits: 0
-61048-61065 IR Daikin AC: Bits: 0
-61065-61100 IR Daikin AC: Bits: 1
-61100-61135 IR Daikin AC: Bits: 1
-61135-61152 IR Daikin AC: Bits: 0
-61152-61170 IR Daikin AC: Bits: 0
-61170-61187 IR Daikin AC: Bits: 0
-61187-61204 IR Daikin AC: Bits: 0
-61204-61222 IR Daikin AC: Bits: 0
-61222-61239 IR Daikin AC: Bits: 0
-61239-61256 IR Daikin AC: Bits: 0
-61256-61274 IR Daikin AC: Bits: 0
-61274-61291 IR Daikin AC: Bits: 0
-61291-61309 IR Daikin AC: Bits: 0
-61309-61326 IR Daikin AC: Bits: 0
-61326-61343 IR Daikin AC: Bits: 0
-61343-61361 IR Daikin AC: Bits: 0
-61361-61378 IR Daikin AC: Bits: 0
-61378-61395 IR Daikin AC: Bits: 0
-61395-61413 IR Daikin AC: Bits: 0
-61413-61430 IR Daikin AC: Bits: 0
-61430-61465 IR Daikin AC: Bits: 1
-61465-61482 IR Daikin AC: Bits: 0
-61482-61517 IR Daikin AC: Bits: 1
-61517-61535 IR Daikin AC: Bits: 0
-61535-61552 IR Daikin AC: Bits: 0
-61552-61570 IR Daikin AC: Bits: 0
-61570-61604 IR Daikin AC: Bits: 1
-61604-61639 IR Daikin AC: Bits: 1
-61639-61656 IR Daikin AC: Bits: 0
-61656-61674 IR Daikin AC: Bits: 0
-61674-61691 IR Daikin AC: Bits: 0
-61691-61708 IR Daikin AC: Bits: 0
-61708-61726 IR Daikin AC: Bits: 0
-61726-61743 IR Daikin AC: Bits: 0
-61743-61761 IR Daikin AC: Bits: 0
-61761-61778 IR Daikin AC: Bits: 0
-61778-61795 IR Daikin AC: Bits: 0
-61795-61813 IR Daikin AC: Bits: 0
-61813-61830 IR Daikin AC: Bits: 0
-61830-61865 IR Daikin AC: Bits: 1
-61865-61882 IR Daikin AC: Bits: 0
-61882-61899 IR Daikin AC: Bits: 0
-61899-61917 IR Daikin AC: Bits: 0
-61917-61934 IR Daikin AC: Bits: 0
-61934-61969 IR Daikin AC: Bits: 1
-61969-62004 IR Daikin AC: Bits: 1
-62004-62038 IR Daikin AC: Bits: 1
-62038-62073 IR Daikin AC: Bits: 1
-62073-62108 IR Daikin AC: Bits: 1
-62108-62125 IR Daikin AC: Bits: 0
-62125-62160 IR Daikin AC: Bits: 1
-62160-62177 IR Daikin AC: Bits: 0
+1
+0
+0
+0
+1
+0
+0
+0
+0
+1
+0
+1
+1
+0
+1
+1
+1
+1
+1
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+1
+0
+0
+0
+1
+1
+0
+0
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+1
+1
+0
+0
+1
+1
+1
+1
+0
+0
+0
+1
+0
+0
+0
+0
+1
+0
+1
+1
+0
+1
+1
+1
+1
+1
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+0
+0
+1
+0
+1
+0
+0
+0
+0
+1
+1
+0
+1
+0
+1
+1
+0
+1
+0
+0
+0
+1
+0
+0
+0
+1
+1
+1
+1
+0
+0
+0
+1
+0
+0
+0
+0
+1
+0
+1
+1
+0
+1
+1
+1
+1
+1
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+1
+1
+1
+0
+0
+0
+1
+0
+0
+1
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+1
+1
+1
+1
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+1
+0
+0
+0
+1
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+0
+0
+1
+1
+1
+1
+1
+0
+1
+0

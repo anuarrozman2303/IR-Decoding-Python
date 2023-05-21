@@ -35,19 +35,20 @@ def process_file(filename, section_name, parent_folder):
         with open(output_file_path, 'w') as f:
             for group in groups:
                 f.write(f"{group}\n")
+        # Open the file
+        with open(output_file_path, 'r') as f:
+            # Read all lines from the file
+            lines = f.readlines()
+            line_number = 22
+            arr=[]
+            if 0 <= line_number < len(lines):
+                line_content = lines[line_number].strip()
+                binary_str = (line_content[::-1])
+                binary_int = int(binary_str, 2)
+                arr.append(binary_int)
+                print(arr)
                 
     return lines, groups
-
-def get_lines_from_groups(section_name, parent_folder):
-    groups_folder = os.path.join(parent_folder, section_name.replace(' ', '_'), "groups")
-    lines_from_groups = []
-    for root, dirs, files in os.walk(groups_folder):
-        for file in files:
-            file_path = os.path.join(root, file)
-            with open(file_path, 'r') as f:
-                lines = f.readlines()
-                lines_from_groups.extend(lines)
-    return lines_from_groups
 
 def compare_filtered_files(filtered_files, output_folder):
     output_file_name = f"diff_{os.path.basename(os.path.dirname(filtered_files[0]))}.txt"
