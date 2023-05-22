@@ -35,14 +35,24 @@ config.read('config.ini')
 
 # Dictionary to store combined line_nums for each hexpos in each section
 combined_line_nums = {}
+# List to store filtered content of each file
+filtered_content_list = []
 
 # Iterate over sections
 for section in config.sections():
     file_list = [config.get(section, option) for option in config.options(section)]
     file_count = len(file_list)
     printed_combinations = set()
+    
     if section != "temp":
-        print('{"id":"' + section + '","cmd":')
+        # Filter files and store the filtered content
+        filtered_content = [filter_file_content(file_path) for file_path in file_list]
+        filtered_content_list.extend(filtered_content)
+        
+        # Overwrite the files with the filtered content
+        for file_path, filtered_content in zip(file_list, filtered_content):
+            with open(file_path, 'w') as f:
+                f.write('\n'.join(filtered_content))
         # Compare files
         for i in range(file_count - 1):
             file1_path = file_list[i]
@@ -82,6 +92,14 @@ for section in config.sections():
                                 printed_combinations.add(combination)
                                 print('\t{"name":"' + f'{file2_path}"' + f',"inst":[[{hexpos},{characters_int},13]]}}' )
     else:
+        # Filter files and store the filtered content
+        filtered_content = [filter_file_content(file_path) for file_path in file_list]
+        filtered_content_list.extend(filtered_content)
+        
+        # Overwrite the files with the filtered content
+        for file_path, filtered_content in zip(file_list, filtered_content):
+            with open(file_path, 'w') as f:
+                f.write('\n'.join(filtered_content))
         # Compare files
         tfirst = file_list[0]
         tsec = file_list[1]

@@ -1,4 +1,5 @@
 import configparser
+import re
 
 HEXPOS_GROUP_SIZE = 8
 HEXPOS_TO_EXCLUDE = [8, 16, 35]
@@ -15,16 +16,7 @@ def filter_file_content(filename):
         return lines
 
 def compare_files(file1, file2):
-    with open(file1, 'r') as f1, open(file2, 'r') as f2:
-        lines1 = f1.readlines()
-        lines2 = f2.readlines()
-
-        # Compare lines
-        diff_lines = []
-        for line_num, (line1, line2) in enumerate(zip(lines1, lines2), start=1):
-            if line1.strip() != line2.strip():
-                diff_lines.append((line_num, line1.strip(), line2.strip()))
-        return diff_lines
+    # Remaining code for file comparison...
 
 # Create a ConfigParser object
 config = configparser.ConfigParser()
@@ -32,33 +24,36 @@ config = configparser.ConfigParser()
 # Read the config file
 config.read('config.ini')
 
-# Dictionary to store combined line_nums for each hexpos in each section
-combined_line_nums = {}
+# List to store filtered content of each file
+filtered_content_list = []
 
 # Iterate over sections
 for section in config.sections():
-    print('{"id":"' + section + '","cmd":')
-
     file_list = [config.get(section, option) for option in config.options(section)]
     file_count = len(file_list)
+    printed_combinations = set()
+    
+    if section != "temp":
+        # Filter files and store the filtered content
+        filtered_content = [filter_file_content(file_path) for file_path in file_list]
+        filtered_content_list.extend(filtered_content)
+        
+        # Overwrite the files with the filtered content
+        for file_path, filtered_content in zip(file_list, filtered_content):
+            with open(file_path, 'w') as f:
+                f.write('\n'.join(filtered_content))
+                
+        # Perform comparison and other output
+        for i in range(file_count - 1):
+            file1_path = file_list[i]
+            file2_path = file_list[i + 1]
+            diff_lines = compare_files(file1_path, file2_path)
+            # Remaining code for comparison and output...
+    else:
+        # Remaining code for file comparison and printing...
+        
+# Print combined line_nums for each hexpos in each section
+# Remaining code for printing combined line_nums...
 
-    for i in range(file_count - 1):
-        file1_path = file_list[i]
-        file2_path = file_list[i + 1]
-
-        # ... (existing code remains the same)
-
-        for hexpos, line_nums in hexpos_dict.items():
-            # ... (existing code remains the same)
-
-            # Convert combined_line_nums_set to integers and calculate pos
-            pos_values = [num % HEXPOS_GROUP_SIZE for num in combined_line_nums_set]
-            print("pos:", pos_values)
-
-            # Process pos_values conditionally
-            if all(pos in range(1, 5) for pos in pos_values):
-                print('\t{"name:"' f'"{file1_path}",' + "inst:" f"[[{hexpos},15,12]]" )
-
-            # ... (existing code remains the same)
-
-    print()
+# Print min_characters_int and max_characters_int side by side
+# Remaining code for printing min_characters_int and max_characters_int...
