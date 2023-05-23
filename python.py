@@ -1,8 +1,21 @@
+## Version Date : 19/5/2023
+# Fixed section = "temp" json formatted command.                        #Done
+# Reworked codes to be dynamic.                                         #Done
+## Version Date : 22/5/2023
+# Fixed files content didnt filtered before comparing process.          #Done
+# Fixed commands each function are correct.                             #Done
+## Task Date : 23/5/2023
+# Combining setTo0 and setToVal commands together.                      #Done
+# import lists.py (ir protocol config file)                             #Done
+# Combining commands of similar hexpos with based on their files name.  #
+# Adding more device informations.                                      #Done
+
 import configparser
 import re
+from lists import *
 
 HEXPOS_GROUP_SIZE = 8
-HEXPOS_TO_EXCLUDE = [8, 16, 35]
+HEXPOS_TO_EXCLUDE = chsum_address
 
 def filter_file_content(filename):
     with open(filename, 'r') as f:
@@ -26,6 +39,23 @@ def compare_files(file1, file2):
             if line1.strip() != line2.strip():
                 diff_lines.append((line_num, line1.strip(), line2.strip()))
         return diff_lines
+
+def setToZero(file_path, hexpos):
+    output = '{"name":"' + file_path + '",inst:'
+    
+    hexpos_dict = combined_line_nums.get(section, {})
+    hexpos_line_nums = hexpos_dict.get(hexpos, [])
+    
+    combined_line_nums_set = sorted(set(hexpos_line_nums))
+    pos_values = [num % HEXPOS_GROUP_SIZE for num in combined_line_nums_set]
+    
+    if all(pos in range(1, 5) for pos in pos_values):
+        output += f'[[{hexpos},15,12],'
+    elif any(pos in [5, 6, 7, 0] for pos in pos_values) and not any(pos in [1, 2, 3, 4] for pos in pos_values):
+        output += f'[[{hexpos},240,12],'
+    else:
+        output += f'[[{hexpos},255,12],'
+    return output
 
 # Create a ConfigParser object
 config = configparser.ConfigParser()
@@ -78,7 +108,10 @@ for section in config.sections():
                                 characters = (''.join(hex_sequence).replace('\n', '')[::-1])
                                 characters_int = int(characters, 2)  # Convert characters to an integer
                                 printed_combinations.add(combination)
-                                print('\t{"name":"' + f'{file1_path}"' + f',"inst":[[{hexpos},{characters_int},13]]}}' )
+                                output = setToZero(file1_path, hexpos)
+                                print(output, end='')
+                                print(f'[{hexpos},{characters_int},13]]}}')
+                                
 
                         combination = f"{file2_path}:{hexpos}"
                         if combination not in printed_combinations:
@@ -90,7 +123,10 @@ for section in config.sections():
                                 characters = (''.join(hex_sequence).replace('\n', '')[::-1])
                                 characters_int = int(characters, 2)  # Convert characters to an integer
                                 printed_combinations.add(combination)
-                                print('\t{"name":"' + f'{file2_path}"' + f',"inst":[[{hexpos},{characters_int},13]]}}' )
+                                output = setToZero(file2_path, hexpos)
+                                print(output, end='')
+                                print(f'[{hexpos},{characters_int},13]]}}')
+        print()
     else:
         # Filter files and store the filtered content
         filtered_content = [filter_file_content(file_path) for file_path in file_list]
@@ -148,52 +184,24 @@ for section in config.sections():
                                 characters = (''.join(hex_sequence).replace('\n', '')[::-1])
                                 characters_int = int(characters, 2)  # Convert characters to an integer
                                 max_characters_int = max(max_characters_int, characters_int)
-                                
-    # Print combined line_nums for each hexpos in each section
-    hexpos_dict = combined_line_nums.get(section, {})
-    for hexpos, line_nums in hexpos_dict.items():
-        combined_line_nums_set = sorted(set(line_nums))  # Convert line_nums to a set to remove duplicates and sort in ascending order
-        combined_line_nums_str = f"[{hexpos}:{', '.join(str(num) for num in combined_line_nums_set)}]"
-        # Convert combined_line_nums_set to integers and calculate pos
-        pos_values = [num % HEXPOS_GROUP_SIZE for num in combined_line_nums_set]
-        if section == "temp":
-            continue
-        # Process pos_values conditionally for all files
-        if all(pos in range(1, 5) for pos in pos_values):
-            for file_path in file_list:
-                with open(file_path, "r") as file:
-                    lines = file.readlines()
-                    start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
-                    end_line = start_line + HEXPOS_GROUP_SIZE
-                    hex_sequence = lines[start_line:end_line]
-                    characters = (''.join(hex_sequence).replace('\n', '')[::-1])
-                    characters_int = int(characters, 2)  # Convert characters to an integer
-                    print('\t{"name":"' + f'{file_path}"' + f',"inst":[[{hexpos},15,12]]}}' )
-        elif any(pos in [5, 6, 7, 0] for pos in pos_values) and not any(pos in [1, 2, 3, 4] for pos in pos_values):
-            for file_path in file_list:
-                with open(file_path, "r") as file:
-                    lines = file.readlines()
-                    start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
-                    end_line = start_line + HEXPOS_GROUP_SIZE
-                    hex_sequence = lines[start_line:end_line]
-                    characters = ''.join(hex_sequence).replace('\n', '')[::-1]
-                    characters_int = int(characters, 2)  # Convert characters to an integer
-                    print('\t{"name":"' + f'{file_path}"' + f',"inst":[[{hexpos},240,12]]}}')
-        else:
-            for file_path in file_list:
-                with open(file_path, "r") as file:
-                    lines = file.readlines()
-                    start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
-                    end_line = start_line + HEXPOS_GROUP_SIZE
-                    hex_sequence = lines[start_line:end_line]
-                    characters = ''.join(hex_sequence).replace('\n', '')[::-1]
-                    characters_int = int(characters, 2)  # Convert characters to an integer
-                    print('\t{"name":"' + f'{file_path}"' + f',"inst":[[{hexpos},255,12]]}}')
-    print()
+                            
 # Print min_characters_int and max_characters_int side by side
 if min_characters_int != float('inf') and max_characters_int != float('-inf'):
     incr = int(max_characters_int / tlast)
     print('\n\n"tCod":[' + f"{incr}," + f"{min_characters_int}," + f"{max_characters_int}],")
     print('"tDis":[' + f"{disp}," + f"{tfirst},{tlast}],")
     print('"tAdd:' f'"{thex}"')
-    print('"tUnit:' f'"{tunit}"')
+    print('"tUnit:' f'"{tunit}",\n')
+
+if dev_id == "ir_daikin_ac":
+    values = ', '.join(('32 ' * len(chsum_address)).split())
+    pre = ', '.join(("00 ").split())
+    pre += ', '
+    conf = '"9470,2,CE4,720,17C,1DA,17C,54A,17C,1E"'
+    id = '"daikin"'
+    ## Brand Info
+    print('"cSum":' + f"{chsum_address},")
+    print('"cInf":"' + values + ' ;01",')
+    print('"cPre":"' + pre + '",')
+    print('"cConf":' + conf + ',')
+    print('"id":' + id)
