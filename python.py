@@ -7,15 +7,21 @@
 ## Task Date : 23/5/2023
 # Combining setTo0 and setToVal commands together.                      #Done
 # import lists.py (ir protocol config file)                             #Done
-# Combining commands of similar hexpos with based on their files name.  #
 # Adding more device informations.                                      #Done
+## Task Date : 24/5/2023
+# Combining commands of similar hexpos with based on their files name.  #
 
 import configparser
 import re
+import os
 from lists import *
 
 HEXPOS_GROUP_SIZE = 8
 HEXPOS_TO_EXCLUDE = chsum_address
+
+def remove_file_extension(filename):
+    # Remove file extension
+    return os.path.splitext(filename)[0]
 
 def filter_file_content(filename):
     with open(filename, 'r') as f:
@@ -41,7 +47,7 @@ def compare_files(file1, file2):
         return diff_lines
 
 def setToZero(file_path, hexpos):
-    output = '{"name":"' + file_path + '",inst:'
+    output = '{"name":"' + file_path + '","inst":'
     
     hexpos_dict = combined_line_nums.get(section, {})
     hexpos_line_nums = hexpos_dict.get(hexpos, [])
@@ -67,141 +73,153 @@ config.read('config.ini')
 combined_line_nums = {}
 # List to store filtered content of each file
 filtered_content_list = []
-
-# Iterate over sections
-for section in config.sections():
-    file_list = [config.get(section, option) for option in config.options(section)]
-    file_count = len(file_list)
-    printed_combinations = set()
-    
-    if section != "temp":
-        # Filter files and store the filtered content
-        filtered_content = [filter_file_content(file_path) for file_path in file_list]
-        filtered_content_list.extend(filtered_content)
+with open('output.json', 'w') as output_file:
+    import sys
+    sys.stdout = output_file  
+    # Iterate over sections
+    print('{"code":[17,218,39,0,197,16,0,0,17,218,39,0,66,170,35,0,17,218,39,0,0,40,36,0,0,0,0,6,96,0,0,197,0,8,0],"cmdGr":[')
+    for section in config.sections():
+        file_list = [config.get(section, option) for option in config.options(section)]
+        file_count = len(file_list)
+        printed_combinations = set()
         
-        # Overwrite the files with the filtered content
-        for file_path, filtered_content in zip(file_list, filtered_content):
-            with open(file_path, 'w') as f:
-                f.write('\n'.join(filtered_content))
-        # Compare files
-        for i in range(file_count - 1):
-            file1_path = file_list[i]
-            file2_path = file_list[i + 1]
-            diff_lines = compare_files(file1_path, file2_path)
-            if diff_lines:
-                for line_num, line1, line2 in diff_lines:
-                    hexpos = (line_num - 1) // HEXPOS_GROUP_SIZE + 1
-                    if hexpos not in HEXPOS_TO_EXCLUDE:
-                        output = f"[{hexpos}:{line_num}] {line1} | {line2}"
-                        if section not in combined_line_nums:
-                            combined_line_nums[section] = {}
-                        if hexpos not in combined_line_nums[section]:
-                            combined_line_nums[section][hexpos] = []
-                        combined_line_nums[section][hexpos].append(line_num)  # Append only the line_num
-                        combination = f"{file1_path}:{hexpos}"
-                        if combination not in printed_combinations:
-                            with open(file1_path, "r") as file1:
-                                lines = file1.readlines()
-                                start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
-                                end_line = start_line + HEXPOS_GROUP_SIZE
-                                hex_sequence = lines[start_line:end_line]
-                                characters = (''.join(hex_sequence).replace('\n', '')[::-1])
-                                characters_int = int(characters, 2)  # Convert characters to an integer
-                                printed_combinations.add(combination)
-                                output = setToZero(file1_path, hexpos)
-                                print(output, end='')
-                                print(f'[{hexpos},{characters_int},13]]}}')
+        if section != "temp":
+            print('{"id":' + f'"{section}","cmd":[')
+            # Filter files and store the filtered content
+            filtered_content = [filter_file_content(file_path) for file_path in file_list]
+            filtered_content_list.extend(filtered_content)
+            
+            # Overwrite the files with the filtered content
+            for file_path, filtered_content in zip(file_list, filtered_content):
+                with open(file_path, 'w') as f:
+                    f.write('\n'.join(filtered_content))
+            # Compare files
+            for i in range(file_count - 1):
+                file1_path = file_list[i]
+                file2_path = file_list[i + 1]
+                f1 = remove_file_extension(file_list[i])
+                f2 = remove_file_extension(file_list[i + 1])
+                diff_lines = compare_files(file1_path, file2_path)
+                
+                if diff_lines:
+                    for line_num, line1, line2 in diff_lines:
+                        hexpos = (line_num - 1) // HEXPOS_GROUP_SIZE + 1
+                        if hexpos not in HEXPOS_TO_EXCLUDE:
+                            output = f"[{hexpos}:{line_num}] {line1} | {line2}"
+                            if section not in combined_line_nums:
+                                combined_line_nums[section] = {}
+                            if hexpos not in combined_line_nums[section]:
+                                combined_line_nums[section][hexpos] = []
+                            combined_line_nums[section][hexpos].append(line_num)  # Append only the line_num
+                            combination = f"{file1_path}:{hexpos}"
+                            if combination not in printed_combinations:
+                                with open(file1_path, "r") as file1:
+                                    lines = file1.readlines() 
+                                    start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
+                                    end_line = start_line + HEXPOS_GROUP_SIZE
+                                    hex_sequence = lines[start_line:end_line]
+                                    characters = (''.join(hex_sequence).replace('\n', '')[::-1])
+                                    characters_int = int(characters, 2)  # Convert characters to an integer
+                                    printed_combinations.add(combination)
+                                    output = setToZero(f1, hexpos)
+                                    files1 = (f'[{hexpos},{characters_int},13]]}},')
+                                    print(output, end='' + files1)
+                            combination = f"{file2_path}:{hexpos}"
+                            if combination not in printed_combinations:
+                                with open(file2_path, "r") as file2:
+                                    lines = file2.readlines()
+                                    start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
+                                    end_line = start_line + HEXPOS_GROUP_SIZE
+                                    hex_sequence = lines[start_line:end_line]
+                                    characters = (''.join(hex_sequence).replace('\n', '')[::-1])
+                                    characters_int = int(characters, 2)  # Convert characters to an integer
+                                    printed_combinations.add(combination)
+                                    output = setToZero(f2, hexpos)
+                                    files2 = (f'[{hexpos},{characters_int},13]]}},')
+                                    print(output, end='' + files2)
+                            ## if hex pos has same filenames, print together.
+                            ## thanks dano
+        else:
+            # Filter files and store the filtered content
+            filtered_content = [filter_file_content(file_path) for file_path in file_list]
+            filtered_content_list.extend(filtered_content)
+            
+            # Overwrite the files with the filtered content
+            for file_path, filtered_content in zip(file_list, filtered_content):
+                with open(file_path, 'w') as f:
+                    f.write('\n'.join(filtered_content))
+            # Compare files
+            tfirst = file_list[0]
+            tsec = file_list[1]
+            tlast = file_list[-1]
+            # Extract numeric characters from filenames
+            tfirst = float(re.sub(r'\D', '', tfirst))
+            tsec = float(re.sub(r'\D', '', tsec))
+            tlast = float(re.sub(r'\D', '', tlast))
+            # Compare files
+            max_characters_int = float('-inf')
+            min_characters_int = float('inf')
+            disp = tsec - tfirst
+            tunit = "C"
+            for i in range(file_count - 1):
+                file1_path = file_list[i]
+                file2_path = file_list[i + 1]
+                diff_lines = compare_files(file1_path, file2_path)
+                if diff_lines:
+                    for line_num, line1, line2 in diff_lines:
+                        hexpos = (line_num - 1) // HEXPOS_GROUP_SIZE + 1
+                        if hexpos not in HEXPOS_TO_EXCLUDE:
+                            if section not in combined_line_nums:
+                                combined_line_nums[section] = {}
+                            if hexpos not in combined_line_nums[section]:   
+                                combined_line_nums[section][hexpos] = []
+                            combined_line_nums[section][hexpos].append(line_num)  # Append only the line_num
+                            combination = f"{file1_path}:{hexpos}"
+                            if combination not in printed_combinations:
+                                with open(file1_path, "r") as file1:
+                                    lines = file1.readlines()
+                                    start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
+                                    end_line = start_line + HEXPOS_GROUP_SIZE
+                                    hex_sequence = lines[start_line:end_line]
+                                    thex = hexpos
+                                    #8-bit /1 byte
+                                    characters = (''.join(hex_sequence).replace('\n', '')[::-1])
+                                    characters_int = int(characters, 2)  # Convert characters to an integer
+                                    min_characters_int = min(min_characters_int, characters_int)
+
+                            combination = f"{file2_path}:{hexpos}"
+                            if combination not in printed_combinations:
+                                with open(file2_path, "r") as file2:
+                                    lines = file2.readlines()
+                                    start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
+                                    end_line = start_line + HEXPOS_GROUP_SIZE
+                                    hex_sequence = lines[start_line:end_line]
+                                    characters = (''.join(hex_sequence).replace('\n', '')[::-1])
+                                    characters_int = int(characters, 2)  # Convert characters to an integer
+                                    max_characters_int = max(max_characters_int, characters_int)
+                                    
                                 
+    # Print min_characters_int and max_characters_int side by side
+    if min_characters_int != float('inf') and max_characters_int != float('-inf'):
+        incr = int(max_characters_int / tlast)
+        header = ('{"id":"temp","cmd":[')
+        tCod = ('{"tCod":[' + f"{incr}," + f"{min_characters_int}," + f"{max_characters_int}]" + "},")
+        tDis = ('{"tDis":[' + f"{disp}," + f"{tfirst},{tlast}]" + "},")
+        tAdd = ('{"tAdd":' f'"{thex}"' + "},")
+        tUnit = ('{"tUnit":' f'"{tunit}"' + "},\n")
+        print(f'{header}{tCod}{tDis}{tAdd}{tUnit}')
 
-                        combination = f"{file2_path}:{hexpos}"
-                        if combination not in printed_combinations:
-                            with open(file2_path, "r") as file2:
-                                lines = file2.readlines()
-                                start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
-                                end_line = start_line + HEXPOS_GROUP_SIZE
-                                hex_sequence = lines[start_line:end_line]
-                                characters = (''.join(hex_sequence).replace('\n', '')[::-1])
-                                characters_int = int(characters, 2)  # Convert characters to an integer
-                                printed_combinations.add(combination)
-                                output = setToZero(file2_path, hexpos)
-                                print(output, end='')
-                                print(f'[{hexpos},{characters_int},13]]}}')
-        print()
-    else:
-        # Filter files and store the filtered content
-        filtered_content = [filter_file_content(file_path) for file_path in file_list]
-        filtered_content_list.extend(filtered_content)
-        
-        # Overwrite the files with the filtered content
-        for file_path, filtered_content in zip(file_list, filtered_content):
-            with open(file_path, 'w') as f:
-                f.write('\n'.join(filtered_content))
-        # Compare files
-        tfirst = file_list[0]
-        tsec = file_list[1]
-        tlast = file_list[-1]
-        # Extract numeric characters from filenames
-        tfirst = float(re.sub(r'\D', '', tfirst))
-        tsec = float(re.sub(r'\D', '', tsec))
-        tlast = float(re.sub(r'\D', '', tlast))
-        # Compare files
-        max_characters_int = float('-inf')
-        min_characters_int = float('inf')
-        disp = tsec - tfirst
-        tunit = "C"
-        for i in range(file_count - 1):
-            file1_path = file_list[i]
-            file2_path = file_list[i + 1]
-            diff_lines = compare_files(file1_path, file2_path)
-            if diff_lines:
-                for line_num, line1, line2 in diff_lines:
-                    hexpos = (line_num - 1) // HEXPOS_GROUP_SIZE + 1
-                    if hexpos not in HEXPOS_TO_EXCLUDE:
-                        if section not in combined_line_nums:
-                            combined_line_nums[section] = {}
-                        if hexpos not in combined_line_nums[section]:   
-                            combined_line_nums[section][hexpos] = []
-                        combined_line_nums[section][hexpos].append(line_num)  # Append only the line_num
-                        combination = f"{file1_path}:{hexpos}"
-                        if combination not in printed_combinations:
-                            with open(file1_path, "r") as file1:
-                                lines = file1.readlines()
-                                start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
-                                end_line = start_line + HEXPOS_GROUP_SIZE
-                                hex_sequence = lines[start_line:end_line]
-                                thex = hexpos
-                                characters = (''.join(hex_sequence).replace('\n', '')[::-1])
-                                characters_int = int(characters, 2)  # Convert characters to an integer
-                                min_characters_int = min(min_characters_int, characters_int)
-
-                        combination = f"{file2_path}:{hexpos}"
-                        if combination not in printed_combinations:
-                            with open(file2_path, "r") as file2:
-                                lines = file2.readlines()
-                                start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
-                                end_line = start_line + HEXPOS_GROUP_SIZE
-                                hex_sequence = lines[start_line:end_line]
-                                characters = (''.join(hex_sequence).replace('\n', '')[::-1])
-                                characters_int = int(characters, 2)  # Convert characters to an integer
-                                max_characters_int = max(max_characters_int, characters_int)
-                            
-# Print min_characters_int and max_characters_int side by side
-if min_characters_int != float('inf') and max_characters_int != float('-inf'):
-    incr = int(max_characters_int / tlast)
-    print('\n\n"tCod":[' + f"{incr}," + f"{min_characters_int}," + f"{max_characters_int}],")
-    print('"tDis":[' + f"{disp}," + f"{tfirst},{tlast}],")
-    print('"tAdd:' f'"{thex}"')
-    print('"tUnit:' f'"{tunit}",\n')
-
-if dev_id == "ir_daikin_ac":
-    values = ', '.join(('32 ' * len(chsum_address)).split())
-    pre = ', '.join(("00 ").split())
-    pre += ', '
-    conf = '"9470,2,CE4,720,17C,1DA,17C,54A,17C,1E"'
-    id = '"daikin"'
-    ## Brand Info
-    print('"cSum":' + f"{chsum_address},")
-    print('"cInf":"' + values + ' ;01",')
-    print('"cPre":"' + pre + '",')
-    print('"cConf":' + conf + ',')
-    print('"id":' + id)
+    if dev_id == "ir_daikin_ac":
+        values = ', '.join(('32 ' * len(chsum_address)).split())
+        pre = ', '.join(("00 ").split())
+        pre += ', '
+        conf = '"9470,2,CE4,720,17C,1DA,17C,54A,17C,1E"'
+        id = '"daikin"'
+        ## Brand Info
+        cSum = ('"cSum":' + f"{chsum_address},")
+        cInf = ('"cInf":"' + values + ' ;01",')
+        cPre = ('"cPre":"' + pre + '",')
+        print('"cConf":' + conf + ',')
+        print('"id":' + id)
+# Reset the standard output to the terminal
+sys.stdout = sys.__stdout__
