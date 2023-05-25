@@ -115,8 +115,10 @@ with open('output.json', 'w') as output_file:
                             if combination not in printed_combinations:
                                 with open(file1_path, "r") as file1:
                                     lines = file1.readlines() 
-                                    start_line = (hexpos - 1) * HEXPOS_GROUP_SIZE
-                                    end_line = start_line + HEXPOS_GROUP_SIZE
+                                    start_line = ((hexpos - 1) * HEXPOS_GROUP_SIZE) + 1
+                                    print(start_line)
+                                    end_line = start_line + 7
+                                    print(end_line)
                                     hex_sequence = lines[start_line:end_line]
                                     characters = (''.join(hex_sequence).replace('\n', '')[::-1])
                                     characters_int = int(characters, 2)  # Convert characters to an integer
@@ -202,12 +204,11 @@ with open('output.json', 'w') as output_file:
     # Print min_characters_int and max_characters_int side by side
     if min_characters_int != float('inf') and max_characters_int != float('-inf'):
         incr = int(max_characters_int / tlast)
-        header = ('{"id":"temp","cmd":[')
-        tCod = ('{"tCod":[' + f"{incr}," + f"{min_characters_int}," + f"{max_characters_int}]" + "},")
-        tDis = ('{"tDis":[' + f"{disp}," + f"{tfirst},{tlast}]" + "},")
-        tAdd = ('{"tAdd":' f'"{thex}"' + "},")
-        tUnit = ('{"tUnit":' f'"{tunit}"' + "},\n")
-        print(f'{header}{tCod}{tDis}{tAdd}{tUnit}')
+        tCod = ('{"tCod":[' + f"{incr}," + f"{min_characters_int}," + f"{max_characters_int}]" + ",")
+        tDis = ('"tDis":[' + f"{disp}," + f"{tfirst},{tlast}]" + ",")
+        tAdd = ('"tAdd":' f'"{thex}"' + ",")
+        tUnit = ('"tUnit":' f'"{tunit}",' )
+        print(f'{tCod}{tDis}{tAdd}{tUnit}')
 
     if dev_id == "ir_daikin_ac":
         values = ', '.join(('32 ' * len(chsum_address)).split())
@@ -219,7 +220,8 @@ with open('output.json', 'w') as output_file:
         cSum = ('"cSum":' + f"{chsum_address},")
         cInf = ('"cInf":"' + values + ' ;01",')
         cPre = ('"cPre":"' + pre + '",')
-        print('"cConf":' + conf + ',')
-        print('"id":' + id)
+        cConf = ('"cConf":' + conf + ',')
+        cId = ('"cId":' + id + "}\n")
+        print(f'{cSum}{cInf}{cPre}{cConf}{cId}')
 # Reset the standard output to the terminal
 sys.stdout = sys.__stdout__
