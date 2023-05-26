@@ -97,7 +97,7 @@ def process_files_in_config(config_file):
                     for hex_pos, line_nums in unique_lines_by_hex_pos.items():
                         extracted_value = extract_8_characters(file_path, hex_pos, min(line_nums))
                         converted_value = int(extracted_value[::-1], 2)  # Convert
-                        commands.append({key: [[hex_pos, 15, 12], [hex_pos, converted_value, 13]]})
+                        commands.append({key: [output, [hex_pos, converted_value, 13]]})
 
                     # Check if key already exists in section_output
                     existing_commands = [cmd for cmd in section_output if cmd.get("id") == key]

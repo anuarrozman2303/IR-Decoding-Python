@@ -72,7 +72,7 @@ filtered_content_list = []
 for section in config.sections():
     file_list = [config.get(section, option) for option in config.options(section)]
     file_count = len(file_list)
-    printed_combinations = set()
+    printed_combinations = []
     
     if section != "temp":
         # Filter files and store the filtered content
@@ -98,7 +98,7 @@ for section in config.sections():
                         if hexpos not in combined_line_nums[section]:
                             combined_line_nums[section][hexpos] = []
                         combined_line_nums[section][hexpos].append(line_num)  # Append only the line_num
-                        combination = f"{file1_path}:{hexpos}"
+                        combination = f"{file1_path}"
                         if combination not in printed_combinations:
                             with open(file1_path, "r") as file1:
                                 lines = file1.readlines()
@@ -107,13 +107,11 @@ for section in config.sections():
                                 hex_sequence = lines[start_line:end_line]
                                 characters = (''.join(hex_sequence).replace('\n', '')[::-1])
                                 characters_int = int(characters, 2)  # Convert characters to an integer
-                                printed_combinations.add(combination)
+                                printed_combinations.append(combination)
                                 output = setToZero(file1_path, hexpos)
                                 print(output, end='')
                                 print(f'[{hexpos},{characters_int},13]]}}')
-                                
-
-                        combination = f"{file2_path}:{hexpos}"
+                        combination = f"{file2_path}"
                         if combination not in printed_combinations:
                             with open(file2_path, "r") as file2:
                                 lines = file2.readlines()
@@ -122,7 +120,7 @@ for section in config.sections():
                                 hex_sequence = lines[start_line:end_line]
                                 characters = (''.join(hex_sequence).replace('\n', '')[::-1])
                                 characters_int = int(characters, 2)  # Convert characters to an integer
-                                printed_combinations.add(combination)
+                                printed_combinations.append(combination)
                                 output = setToZero(file2_path, hexpos)
                                 print(output, end='')
                                 print(f'[{hexpos},{characters_int},13]]}}')

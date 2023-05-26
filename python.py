@@ -15,6 +15,7 @@ import configparser
 import re
 import os
 from lists import *
+import json
 
 HEXPOS_GROUP_SIZE = 8
 HEXPOS_TO_EXCLUDE = chsum_address
@@ -73,6 +74,7 @@ config.read('config.ini')
 combined_line_nums = {}
 # List to store filtered content of each file
 filtered_content_list = []
+output_data = []
 with open('output.json', 'w') as output_file:
     import sys
     sys.stdout = output_file  
@@ -116,13 +118,12 @@ with open('output.json', 'w') as output_file:
                                 with open(file1_path, "r") as file1:
                                     lines = file1.readlines() 
                                     start_line = ((hexpos - 1) * HEXPOS_GROUP_SIZE) + 1
-                                    print(start_line)
                                     end_line = start_line + 7
-                                    print(end_line)
                                     hex_sequence = lines[start_line:end_line]
                                     characters = (''.join(hex_sequence).replace('\n', '')[::-1])
                                     characters_int = int(characters, 2)  # Convert characters to an integer
                                     printed_combinations.add(combination)
+                                    print()
                                     output = setToZero(f1, hexpos)
                                     files1 = (f'[{hexpos},{characters_int},13]]}},')
                                     print(output, end='' + files1)
@@ -139,8 +140,6 @@ with open('output.json', 'w') as output_file:
                                     output = setToZero(f2, hexpos)
                                     files2 = (f'[{hexpos},{characters_int},13]]}},')
                                     print(output, end='' + files2)
-                            ## if hex pos has same filenames, print together.
-                            ## thanks dano
         else:
             # Filter files and store the filtered content
             filtered_content = [filter_file_content(file_path) for file_path in file_list]
@@ -223,5 +222,8 @@ with open('output.json', 'w') as output_file:
         cConf = ('"cConf":' + conf + ',')
         cId = ('"cId":' + id + "}\n")
         print(f'{cSum}{cInf}{cPre}{cConf}{cId}')
+    # Print the final output data
+    for entry in output_data:
+        print(json.dumps(entry) + ",")
 # Reset the standard output to the terminal
 sys.stdout = sys.__stdout__
