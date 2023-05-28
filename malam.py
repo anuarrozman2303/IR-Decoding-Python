@@ -45,9 +45,10 @@ def process_files_in_config(config_file):
 
         excluded_hex_pos = [8, 16, 35]  # List of excluded hex_pos values
 
-        output = {}  # Dictionary to store output for each file_name
+        output = {}
         output["code"] = [17, 218, 39, 0, 197, 16, 0, 0, 17, 218, 39, 0, 66, 170, 35, 0, 17, 218, 39, 0, 0, 40, 36, 0, 0, 0, 0, 6, 96, 0, 0, 197, 0, 8, 0]
         output["cmdGr"] = []
+
         for section in config.sections():
             filtered_files = {}
 
@@ -91,17 +92,26 @@ def process_files_in_config(config_file):
                                     setToZero = 240
                                 else:
                                     setToZero = 255
-                                if section not in output:
-                                    output[section] = {"id": section, "cmd": []}
-                                existing_file_names = [item["name"] for item in output[section]["cmd"]]
-                                if file_name not in existing_file_names:
-                                    output[section]["cmd"].append({"name": file_name, "inst": []})
-                                for item in output[section]["cmd"]:
-                                    if item["name"] == file_name:
-                                        file_inst = item["inst"]
-                                        file_inst.append([hex_pos, setToZero, 12])
-                                        file_inst.append([hex_pos, converted_value, 13])
-                                        break
+                                section_data = {"id": section, "cmd": []}
+                                existing_sections = [item["id"] for item in output["cmdGr"]]
+                                if section not in existing_sections:
+                                    output["cmdGr"].append(section_data)
+                                for item in output["cmdGr"]:
+                                    if item["id"] == section:
+                                        file_inst = item["cmd"]
+                                        existing_file_names = [inst["name"] for inst in file_inst]
+                                        if file_name not in existing_file_names:
+                                            file_inst.append({"name": file_name, "inst": []})
+                                        for inst in file_inst:
+                                            if inst["name"] == file_name:
+                                                inst["inst"].append([hex_pos, setToZero, 12])
+                                                inst["inst"].append([hex_pos, converted_value, 13])
+                                                break
+
+
+
+
+
         
                 # Rewrite filtered content to the files
                 for key, (filtered_content, file_path) in filtered_files.items():
