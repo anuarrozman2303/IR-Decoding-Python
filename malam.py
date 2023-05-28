@@ -108,11 +108,6 @@ def process_files_in_config(config_file):
                                                 inst["inst"].append([hex_pos, converted_value, 13])
                                                 break
 
-
-
-
-
-        
                 # Rewrite filtered content to the files
                 for key, (filtered_content, file_path) in filtered_files.items():
                     # Rewrite filtered content to the file
@@ -150,7 +145,13 @@ def process_files_in_config(config_file):
                 pre = ', '.join(("00 ").split())
                 pre += ', '
                 conf = '9470,2,CE4,720,17C,1DA,17C,54A,17C,1E'
-                id = 'daikin' 
+                id = 'daikin'
+            else:
+                values = (', '.join(('XX ' * len(chsum_address)).split()) + ";01")
+                pre = ', '.join(("00 ").split())
+                pre += ', '
+                conf = 'XX'
+                id = 'XX'
 
         # Append values to output JSON
         output.setdefault("tCod", []).extend([tdis, mintemp, maxtemp])
