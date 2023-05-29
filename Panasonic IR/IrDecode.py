@@ -175,6 +175,6 @@ def process_files_in_config(config_file):
 
 
 # Provide the path to your config file here
-config_file_path = 'Daikin.ini'
+config_file_path = 'Panasonic.ini'
 process_files_in_config(config_file_path)
 
